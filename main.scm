@@ -1,3 +1,7 @@
+;-- HELPER FUCNTIONS --
+(define (delist . ls) (apply values ls))
+; values seems to work different then told in the book :(
+
 ;-- NONSENSE FUNCTIONS --
 (define addWithLambda (lambda (x)
   (+ x x)))
@@ -17,15 +21,14 @@
 (define (isAlsoOdd number)
   (not (even? number)))
 
-(define (allAreNegativeOrGreaterThanHundred number)
+(define (isNegativeOrGreaterThanHundred number)
   (or (negative? number) (> number 100)))
 
 ; not ready yet...
-;(define (allAreNegativeOrGreaterThanHundredK . numbers)
-;  (apply (or (negative? numbers) (> numbers 100)) ))
-
-;(define (allAreNegativeOrGreaterThanHundredK . numbers)
-; (or (apply negative? numbers) (apply > numbers 100)))
+(define (allAreNegativeOrGreaterThanHundred . numbers)
+  (map (lambda (number) (or (negative? number) (> number 100))) numbers))
+  ; becaue 'and' and 'or' are not fucntions, (apply and (map ...)) does not work
+  ; need to find a way to fix this...
 
 ;-- PRINT --
 (print ((lambda (x)
@@ -41,8 +44,12 @@
 (print (isAlsoOdd 3))
 (print (equal? isOdd isAlsoOdd))
 
-(print (allAreNegativeOrGreaterThanHundred -3))
-(print (allAreNegativeOrGreaterThanHundred 3))
-(print (allAreNegativeOrGreaterThanHundred 300))
+(print (isNegativeOrGreaterThanHundred -3))
+(print (isNegativeOrGreaterThanHundred 3))
+(print (isNegativeOrGreaterThanHundred 300))
 
-;(print (allAreNegativeOrGreaterThanHundredK 22))
+(print (allAreNegativeOrGreaterThanHundred 22 223))
+
+ 
+(print (apply + (map (lambda (x) (+ x x)) (list 1 2 3))))
+;(print (apply add (delist (map (lambda (x) (+ x x)) (list 1 2 3)))))
