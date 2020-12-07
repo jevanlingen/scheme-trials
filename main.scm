@@ -2,6 +2,9 @@
 (define (delist . ls) (apply values ls))
 ; values seems to work different then told in the book :(
 
+(define (and-l . x)
+  (if (null? x) #t (if (car x) (apply and-l (cdr x)) #f)))
+
 ;-- NONSENSE FUNCTIONS --
 (define addWithLambda (lambda (x)
   (+ x x)))
@@ -24,11 +27,8 @@
 (define (isNegativeOrGreaterThanHundred number)
   (or (negative? number) (> number 100)))
 
-; not ready yet...
 (define (allAreNegativeOrGreaterThanHundred . numbers)
-  (map (lambda (number) (or (negative? number) (> number 100))) numbers))
-  ; becaue 'and' and 'or' are not fucntions, (apply and (map ...)) does not work
-  ; need to find a way to fix this...
+  (apply and-l (map isNegativeOrGreaterThanHundred numbers)))
 
 ;-- PRINT --
 (print ((lambda (x)
@@ -49,7 +49,3 @@
 (print (isNegativeOrGreaterThanHundred 300))
 
 (print (allAreNegativeOrGreaterThanHundred 22 223))
-
- 
-(print (apply + (map (lambda (x) (+ x x)) (list 1 2 3))))
-;(print (apply add (delist (map (lambda (x) (+ x x)) (list 1 2 3)))))
