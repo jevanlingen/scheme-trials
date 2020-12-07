@@ -49,3 +49,5 @@
 (print (isNegativeOrGreaterThanHundred 300))
 
 (print (allAreNegativeOrGreaterThanHundred 22 223))
+
+(let ((x 24) (y 23) (z 32)) (+ x y z))
