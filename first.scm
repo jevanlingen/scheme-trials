@@ -1,10 +1,5 @@
+#lang racket
 ;-- HELPER FUCNTIONS --
-(define (delist . ls) (apply values ls))
-; values seems to work different then told in the book :(
-
-(define (delist ls)
-      (apply values ls))
-
 (define (and-l . x)
   (if (null? x) #t (if (car x) (apply and-l (cdr x)) #f)))
 
